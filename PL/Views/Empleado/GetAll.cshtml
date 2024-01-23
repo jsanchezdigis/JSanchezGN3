@@ -1,0 +1,67 @@
+﻿@model ML.Empleado
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Empleados</h2>
+        <p>Agregar, Eliminar, Modificar los Empleados</p>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div style="float:right">
+            @Html.ActionLink("Agregar", "Form", "Empleado", htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        @if (Model.Empleados != null)
+        {
+            <table class="table table-bordered table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <td class="text-center" style=" font-weight:bold;">Editar</td>
+
+                        <td style="display: none;">IdEmpleado</td>
+                        <td class="text-center" style=" font-weight:bold;">Nombre</td>
+                        <td class="text-center" style=" font-weight:bold;">Fecha Ingreso</td>
+                        <td class="text-center" style=" font-weight:bold;">Fecha Nacimiento</td>
+                        <td style="display: none;">IdDepartamento</td>
+                        <td class="text-center" style=" font-weight:bold;">Departamento</td>
+                        <td style="display: none;">IdSalario</td>
+                        <td class="text-center" style=" font-weight:bold;">Salario</td>
+                        <td class="text-center" style=" font-weight:bold;">Forma de Pago</td>
+
+                        <td class="text-center" style=" font-weight:bold;">Eliminar</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (ML.Empleado empleado in Model.Empleados)
+                    {
+                        <tr>
+
+                            <td class="text-center"><a class="btn btn-warning" href="@Url.Action("Form", "Empleado", new { IdEmpleado = empleado.IdEmpleado })"></a></td>
+
+                            <td style="display: none;">@empleado.IdEmpleado</td>
+                            <td>@empleado.Nombre</td>
+                            <td>@empleado.FechaIngreso.ToString("dd/MM/yyyy")</td>
+                            <td>@empleado.FechaNacimiento.ToString("dd/MM/yyyy")</td>
+                            <td style="display: none;">@empleado.Departamento.IdDepartamento</td>
+                            <td>@empleado.Departamento.Descripcion</td>
+                            <td style="display: none;">@empleado.Sueldo.IdSueldo</td>
+                            <td>@empleado.Sueldo.Sueldo1</td>
+                            <td>@empleado.Sueldo.FormaPago</td>
+
+                            <td class="text-center"><a class="btn btn-danger" href="@Url.Action("Delete", "Empleado", new { IdEmpleado = empleado.IdEmpleado, IdSueldo = empleado.Sueldo.IdSueldo })" onclick="return confirm('Estas seguro que deseas inactivar este registro?');"></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
